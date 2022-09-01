@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 
 import lombok.Getter;
 import lombok.Setter;
+import site.metacoding.red.web.dto.request.users.UpdateDto;
 
-@Setter
 @Getter
 public class Users {
 	private Integer id;
@@ -13,4 +13,19 @@ public class Users {
 	private String password;
 	private String email;
 	private Timestamp createdAt;
+	
+	public void 전체수정(UpdateDto updateDto) {
+		this.username = updateDto.getUsername();
+		this.password = updateDto.getPassword();
+		this.email = updateDto.getEmail();
+	}
+	
+	public void 패스워드수정(String password) {
+		this.password = password;
+	}
+	
+	public void 이메일수정(String email) {
+		this.email = email;
+	}
+
 }

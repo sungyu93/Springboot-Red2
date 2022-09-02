@@ -4,6 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="site.metacoding.red.domain.boards.BoardsDao">
 	
+	<select id="findByIdtoDetail" resultType="site.metacoding.red.domain.mapper.BoardsDetailMapper">
+		SELECT b.id, b.title, b.content, b.usersId, b.createdAt,
+		             u.username, u.password, u.email
+		FROM boards b INNER JOIN users u
+		ON b.usersId = u.id
+		WHERE b.id = #{id}
+	</select>
+	
 	<insert id="insert">
 		INSERT INTO boards(id, title, content, usersId, createdAt) 
 		VALUES(boards_seq.nextval, #{title}, #{content}, #{usersId}, sysdate)
@@ -14,7 +22,10 @@
 	</select>
 	
 	<select id="findAll" resultType="site.metacoding.red.domain.boards.Boards">
-		SELECT * FROM boards ORDER BY id DESC
+		SELECT * FROM boards 
+	</select>
+	
+	<select id="">
 	</select>
 	
 	<delete id="delete">
@@ -23,7 +34,13 @@
 	
 	<update id="update">
 		UPDATE boards
-		SET title= #{title}, content = #{content},
+		SET title= #{title}, content = #{content}, usersId = #{usersId}
+		<!-- 
+		원래 날짜도 넣어야 한다.
+		private Timestamp createAt;
+		private Timestamp updateAt; 
+		이렇게! user도 필요함.
+		 -->
 		WHERE id = #{id}
 	</update>
 
